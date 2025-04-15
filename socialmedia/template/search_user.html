@@ -1,0 +1,42 @@
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Search Results for "{{ query }}"</h3>
+
+    <!-- Users Section -->
+    <h4 class="mt-4">Users</h4>
+    {% if users %}
+        <ul class="list-group">
+            {% for user in users %}
+                <li class="list-group-item">
+                    <a href="/profile/{{ user.username }}">@{{ user.username }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+
+    <!-- Posts Section -->
+    <h4 class="mt-5">Matching Posts</h4>
+    {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="Post image">
+                        <div class="card-body">
+                            <p class="card-text">{{ post.caption }}</p>
+                            <a href="/profile/{{ post.user.username }}">by @{{ post.user.username }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No posts found.</p>
+    {% endif %}
+</div>
+{% endblock %}
